@@ -1,6 +1,10 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
 
+.mb-20vh {
+    margin-bottom: 20vh;
+}
+
 .card {
     .card-img {
         transition: opacity 0.3s ease;
