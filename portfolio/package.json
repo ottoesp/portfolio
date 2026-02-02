@@ -1,0 +1,32 @@
+{
+  "name": "pedestrianinvestigation",
+  "version": "1.0.0",
+  "description": "Otto Esperson's Portfolio Home Page",
+  "homepage": "https://github.com/ottoesp/melbournepedestrianinvestigation#readme",
+  "bugs": {
+    "url": "https://github.com/ottoesp/melbournepedestrianinvestigation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ottoesp/melbournepedestrianinvestigation.git"
+  },
+  "license": "ISC",
+  "author": "Otto Esperson",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.97.2",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8",
+    "intl": "^1.2.5"
+  }
+}
