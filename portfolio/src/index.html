@@ -1,14 +1,67 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap w/ Vite</title>
+    <title>Otto Esperson</title>
+
+    <!-- Hide while css loads -->
+    <style>
+        body {
+            display: none;
+        }
+    </style>
+
     <script type="module" src="./js/main.js"></script>
-  </head>
-  <body>
-    <div class="container py-4 px-3 mx-auto">
-      <a href="http://pedestrians.ottoesperson.com">Pedestrian Investigation</a>
+</head>
+
+<body>
+    <div class="container mt-5 mb-20vh d-flex flex-column g-3 overflow-hidden">
+        <div class="row gy-2">
+            <div class="col-12 col-lg-9">
+                <h1 class="display-1">Otto Esperson</h1>
+            </div>
+            <div class="col-12 col-lg-3 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end gap-2">
+                <a class="github-button" href="https://github.com/ottoesp"
+                    data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
+                    aria-label="Follow @ottoesp on GitHub">Follow @ottoesp</a>
+            </div>
+        </div>
+
+        <div class="row gy-2">
+            <div class="col-12">
+                <h3 class="display-5">Projects</h1>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card text-white position-relative overflow-hidden">
+                    <img src="pedestrian_thumbnail.png" class="card-img object-fit-fill"
+                        alt="map of pedestrian traffic in Melbourne">
+                    <div class="card-img-overlay d-flex flex-column justify-content-center bg-primary bg-opacity-75">
+                        <h5 class="card-title">Melbourne Pedestrian Investigation</h5>
+                        <p class="card-text">A statistical investigation into the effect of the COVID-19 pandemic on pedestrian traffic in Melbourne</p>
+                        <a href="https://pedestrians.ottoesperson.com/" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card text-white position-relative overflow-hidden">
+                    <img src="logic_gates_thumbnail.png" class="card-img object-fit-fill"
+                        alt="map of pedestrian traffic in Melbourne">
+                    <div class="card-img-overlay d-flex flex-column justify-content-center bg-primary bg-opacity-75">
+                        <h5 class="card-title">Logic Diagram Generator</h5>
+                        <p class="card-text">A tool for generating text-based logic diagrams from logical statements</p>
+                        <a href="https://generator.ottoesperson.com/" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </body>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
