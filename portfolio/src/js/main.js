@@ -21,17 +21,27 @@ grecaptcha.ready(function () {
     });
 });
 
+function showMessage(element, show = true) {
+    if (show) {
+        element.classList.remove('d-none');
+        element.classList.add('show');
+    } else {
+        element.classList.add('d-none');
+        element.classList.remove('show');
+    }
+}
+
 document.getElementById('contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
     const successMessage = document.getElementById('success-message');
+    const failureMessage = document.getElementById('failure-message');
 
     if (DEBUG) {
         console.log('DEBUG MODE - Form data:', Object.fromEntries(formData));
-        successMessage.classList.remove('d-none');
-        successMessage.classList.add('show');
+        showMessage(successMessage);
         return;
     }
 
@@ -45,16 +55,20 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
         });
 
         if (response.ok) {
-            successMessage.classList.remove('d-none');
-            successMessage.classList.add('show');
+            showMessage(successMessage);
+            showMessage(failureMessage, false);
             form.reset();
         } else {
             const data = await response.json();
+            showMessage(failureMessage);
+            showMessage(successMessage, false);
             if (data.errors) {
                 console.error(data.errors.map(error => error.message).join(", "));
             }
         }
     } catch (error) {
+        showMessage(failureMessage);
+        showMessage(successMessage, false);
         console.error('Error submitting form:', error);
     }
 });
