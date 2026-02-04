@@ -1,6 +1,4 @@
 // Define custom colors before importing Bootstrap
-$tertiary: #6c757d;
-
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
 
@@ -8,7 +6,7 @@ $tertiary: #6c757d;
     margin-bottom: 20vh;
 }
 
-.card {
+.card-project {
     .card-img {
         transition: transform 0.3s ease;
     }
@@ -16,12 +14,15 @@ $tertiary: #6c757d;
     .card-img-overlay {
         opacity: 0;
         backdrop-filter: blur(6px);
-        background-color: rgba(255, 255, 255, 0.45);
-
-        box-shadow: inset 3px 3px 0 rgba(256, 256, 256, 0.75),
+        background: 
+            radial-gradient(
+                5rem circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba($white, 0.7),
+                rgba($secondary, 0.0)
+            );
+        box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.75),
                     inset 0 0 7px rgba(237, 245, 255, 0.75);
-        
-        backdrop-filter: blur(4px);
+        transition: opacity 0.3s ease;
     }
     
     &.loaded {

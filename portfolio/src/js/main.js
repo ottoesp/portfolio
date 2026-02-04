@@ -72,3 +72,26 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
         console.error('Error submitting form:', error);
     }
 });
+
+// Add mouse tracking on cards
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const overlay = card.querySelector('.card-img-overlay');
+        if (overlay) {
+            overlay.style.setProperty('--mouse-x', `${x}px`);
+            overlay.style.setProperty('--mouse-y', `${y}px`);
+        }
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        const overlay = card.querySelector('.card-img-overlay');
+        if (overlay) {
+            overlay.style.removeProperty('--mouse-x');
+            overlay.style.removeProperty('--mouse-y');
+        }
+    });
+});
