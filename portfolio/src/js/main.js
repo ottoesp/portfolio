@@ -12,3 +12,9 @@ window.addEventListener('load', () => {
         card.classList.add('loaded');
     });
 });
+
+grecaptcha.ready(function() {
+    grecaptcha.execute('6Ld9EmAsAAAAAE1EBVBBiivRAp_zafR83JYcc7y_', {action: 'homepage'}).then(function(token) {
+      document.getElementById('g-recaptcha-response').value = token;
+    });
+  });
