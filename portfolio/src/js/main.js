@@ -37,16 +37,24 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 
     try {
         const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
         });
 
         if (response.ok) {
             successMessage.classList.remove('d-none');
             successMessage.classList.add('show');
             form.reset();
+        } else {
+            const data = await response.json();
+            if (data.errors) {
+                console.error(data.errors.map(error => error.message).join(", "));
+            }
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error submitting form:', error);
     }
 });
