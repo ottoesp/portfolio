@@ -8,19 +8,6 @@ const DEBUG = false; // Set to false to submit normally
 
 document.body.style.display = 'block';
 
-// Prevent card transition flicker on page load
-window.addEventListener('load', () => {
-    document.querySelectorAll('.card').forEach(card => {
-        card.classList.add('loaded');
-    });
-});
-
-grecaptcha.ready(function () {
-    grecaptcha.execute('6Ld9EmAsAAAAAE1EBVBBiivRAp_zafR83JYcc7y_', { action: 'homepage' }).then(function (token) {
-        document.getElementById('g-recaptcha-response').value = token;
-    });
-});
-
 function showMessage(element, show = true) {
     if (show) {
         element.classList.remove('d-none');
@@ -31,6 +18,50 @@ function showMessage(element, show = true) {
     }
 }
 
+function updateMousePosition(overlay, x, y) {
+    overlay.style.setProperty('--mouse-x', `${x}%`);
+    overlay.style.setProperty('--mouse-y', `${y}%`);
+    overlay.style.setProperty('--mouse-x-num', x);
+    overlay.style.setProperty('--mouse-y-num', y);
+}
+
+function clearMousePosition(overlay) {
+    overlay.style.removeProperty('--mouse-x');
+    overlay.style.removeProperty('--mouse-y');
+    overlay.style.removeProperty('--mouse-x-num');
+    overlay.style.removeProperty('--mouse-y-num');
+}
+
+function toggleCardOverlay(card, show) {
+    const overlay = card.querySelector('.card-img-overlay');
+    if (overlay) {
+        overlay.classList.toggle('show', show);
+    }
+}
+
+function calculateVisibleRatio(card) {
+    const rect = card.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const cardHeight = rect.height;
+    const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+    return visibleHeight / cardHeight;
+}
+
+// Prevent card transition flicker on page load
+window.addEventListener('load', () => {
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.add('loaded');
+    });
+});
+
+// reCAPTCHA
+grecaptcha.ready(function () {
+    grecaptcha.execute('6Ld9EmAsAAAAAE1EBVBBiivRAp_zafR83JYcc7y_', { action: 'homepage' }).then(function (token) {
+        document.getElementById('g-recaptcha-response').value = token;
+    });
+});
+
+// Contact form submission
 document.getElementById('contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -82,20 +113,42 @@ document.querySelectorAll('.card').forEach(card => {
         
         const overlay = card.querySelector('.card-img-overlay');
         if (overlay) {
-            overlay.style.setProperty('--mouse-x', `${x}%`);
-            overlay.style.setProperty('--mouse-y', `${y}%`);
-            overlay.style.setProperty('--mouse-x-num', x);
-            overlay.style.setProperty('--mouse-y-num', y);
+            updateMousePosition(overlay, x, y);
         }
     });
     
     card.addEventListener('mouseleave', () => {
         const overlay = card.querySelector('.card-img-overlay');
         if (overlay) {
-            overlay.style.removeProperty('--mouse-x');
-            overlay.style.removeProperty('--mouse-y');
-            overlay.style.removeProperty('--mouse-x-num');
-            overlay.style.removeProperty('--mouse-y-num');
+            clearMousePosition(overlay);
         }
     });
 });
+
+// ScrollSpy for mobile cards
+if (window.matchMedia('(max-width: 575px)').matches) {
+    let hasScrolled = false;
+    const THRESHOLD = 0.9;
+    
+    const observer = new IntersectionObserver((entries) => {
+        if (!hasScrolled) return;
+        
+        entries.forEach(entry => {
+            toggleCardOverlay(entry.target, entry.isIntersecting);
+        });
+    }, {
+        threshold: THRESHOLD
+    });
+
+    const cards = document.querySelectorAll('.card-project');
+    cards.forEach(card => observer.observe(card));
+    
+    // Enable observer after first scroll and trigger check
+    window.addEventListener('scroll', () => {
+        hasScrolled = true;
+        cards.forEach(card => {
+            const isVisible = calculateVisibleRatio(card) >= THRESHOLD;
+            toggleCardOverlay(card, isVisible);
+        });
+    }, { once: true });
+}
