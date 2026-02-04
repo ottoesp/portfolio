@@ -29,7 +29,9 @@
                 rgba($white, 0.9) 90%,
                 rgba($secondary, 0.1) 100%
             );
-        box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.3),
+        box-shadow: inset 4px 4px 0px rgba(255, 255, 255, 0.3),
+                    inset -4px -4px 0px rgba(255, 255, 255, 0.3),
+                    inset 4px 4px 5px rgba(237, 245, 255, 0.1),
                     inset 0 0 5px rgba(237, 245, 255, 0.75);
         transition: opacity 0.3s ease;
     }
@@ -68,4 +70,8 @@
 
 .card-square {
     aspect-ratio: 1 / 1;
+}
+
+.grecaptcha-badge {
+    visibility: hidden;
 }
