@@ -127,12 +127,9 @@ document.querySelectorAll('.card').forEach(card => {
 
 // ScrollSpy for mobile cards
 if (window.matchMedia('(max-width: 575px)').matches) {
-    let hasScrolled = false;
-    const THRESHOLD = 0.7;
+    const THRESHOLD = 0.8;
     
     const observer = new IntersectionObserver((entries) => {
-        if (!hasScrolled) return;
-        
         entries.forEach(entry => {
             toggleCardOverlay(entry.target, entry.isIntersecting);
         });
@@ -142,13 +139,4 @@ if (window.matchMedia('(max-width: 575px)').matches) {
 
     const cards = document.querySelectorAll('.card-project');
     cards.forEach(card => observer.observe(card));
-    
-    // Enable observer after first scroll and trigger check
-    window.addEventListener('scroll', () => {
-        hasScrolled = true;
-        cards.forEach(card => {
-            const isVisible = calculateVisibleRatio(card) >= THRESHOLD;
-            toggleCardOverlay(card, isVisible);
-        });
-    }, { once: true });
 }
