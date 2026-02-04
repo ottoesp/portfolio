@@ -77,13 +77,15 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
         
         const overlay = card.querySelector('.card-img-overlay');
         if (overlay) {
-            overlay.style.setProperty('--mouse-x', `${x}px`);
-            overlay.style.setProperty('--mouse-y', `${y}px`);
+            overlay.style.setProperty('--mouse-x', `${x}%`);
+            overlay.style.setProperty('--mouse-y', `${y}%`);
+            overlay.style.setProperty('--mouse-x-num', x);
+            overlay.style.setProperty('--mouse-y-num', y);
         }
     });
     
@@ -92,6 +94,8 @@ document.querySelectorAll('.card').forEach(card => {
         if (overlay) {
             overlay.style.removeProperty('--mouse-x');
             overlay.style.removeProperty('--mouse-y');
+            overlay.style.removeProperty('--mouse-x-num');
+            overlay.style.removeProperty('--mouse-y-num');
         }
     });
 });
