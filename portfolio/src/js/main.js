@@ -128,7 +128,7 @@ document.querySelectorAll('.card').forEach(card => {
 // ScrollSpy for mobile cards
 if (window.matchMedia('(max-width: 575px)').matches) {
     let hasScrolled = false;
-    const THRESHOLD = 0.9;
+    const THRESHOLD = 0.7;
     
     const observer = new IntersectionObserver((entries) => {
         if (!hasScrolled) return;
