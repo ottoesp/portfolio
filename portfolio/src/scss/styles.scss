@@ -55,6 +55,7 @@
     // Show text by default on mobile (screens smaller than 768px)
     @media (max-width: 575px) {
         .card-img-overlay {
+            transition: opacity 1s ease;
             &.show {
                 opacity: 1;
             }
